@@ -1,58 +1,61 @@
-import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 const contactInfo = [
   {
     icon: MapPin,
-    label: 'Visit Us',
-    value: 'Level 4, N Heights, Plot No 38, Phase 2, Siddiq Nagar, HITEC City, Hyderabad, Telangana 500081',
+    label: "Visit Us",
+    value:
+      "Level 4, N Heights, Plot No 38, Phase 2, Siddiq Nagar, HITEC City, Hyderabad, Telangana 500081",
   },
   {
     icon: Phone,
-    label: 'Call Us',
-    value: '+91-8977079433',
-    href: 'tel:+918977079433',
+    label: "Call Us",
+    value: "+91-8977079433",
+    href: "tel:+918977079433",
   },
   {
     icon: Mail,
-    label: 'Email Us',
-    value: 'info@cloudcrest.in',
-    href: 'mailto:info@cloudcrest.in',
+    label: "Email Us",
+    value: "info@cloudcrest.in",
+    href: "mailto:info@cloudcrest.in",
   },
   {
     icon: Clock,
-    label: 'Business Hours',
-    value: 'Mon - Sat: 9:00 AM - 6:00 PM',
+    label: "Business Hours",
+    value: "Mon - Sat: 9:00 AM - 6:00 PM",
   },
 ];
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', formData);
+    console.log("Contact form submitted:", formData);
   };
 
   return (
-    <section id="contact" className="py-24" style={{ background: 'var(--gradient-hero)' }}>
+    <section
+      id="contact"
+      className="py-24"
+      style={{ background: "var(--gradient-hero)" }}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+          className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent-foreground text-sm font-semibold mb-4">
             Get In Touch
           </span>
@@ -65,14 +68,13 @@ export const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
-          >
+            className="space-y-6">
             {contactInfo.map((item, index) => (
               <motion.div
                 key={item.label}
@@ -80,8 +82,7 @@ export const ContactSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex gap-4 p-6 bg-primary-foreground/5 backdrop-blur-sm rounded-2xl border border-primary-foreground/10"
-              >
+                className="flex gap-4 p-6 bg-primary-foreground/5 backdrop-blur-sm rounded-2xl border border-primary-foreground/10">
                 <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
                   <item.icon className="w-6 h-6 text-accent-foreground" />
                 </div>
@@ -92,8 +93,7 @@ export const ContactSection = () => {
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="text-primary-foreground font-semibold hover:text-accent transition-colors"
-                    >
+                      className="text-primary-foreground font-semibold hover:text-accent transition-colors">
                       {item.value}
                     </a>
                   ) : (
@@ -123,8 +123,7 @@ export const ContactSection = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+            viewport={{ once: true }}>
             <div className="bg-card rounded-2xl p-8 shadow-2xl">
               <h3 className="font-display text-2xl font-bold text-foreground mb-6">
                 Send Us a Message
@@ -177,7 +176,11 @@ export const ContactSection = () => {
                   className="resize-none"
                 />
 
-                <Button type="submit" variant="accent" size="lg" className="w-full">
+                <Button
+                  type="submit"
+                  variant="accent"
+                  size="lg"
+                  className="w-full">
                   Send Message
                   <ArrowRight className="w-5 h-5" />
                 </Button>
