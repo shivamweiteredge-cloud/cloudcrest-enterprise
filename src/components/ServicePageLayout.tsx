@@ -11,7 +11,6 @@ import { useState } from "react";
 import tallyLogo from "@/assets/tally.png";
 import quickbooksLogo from "@/assets/quickbooks.png";
 import microsoftLogo from "@/assets/microsoft.png";
-import zohoLogo from "@/assets/Zoho.png";
 import xeroLogo from "@/assets/xero.png";
 import sapLogo from "@/assets/sap.png";
 import odooLogo from "@/assets/odoo.png";
@@ -21,7 +20,6 @@ const softwareList = [
   { name: "Tally Prime", logo: tallyLogo },
   { name: "QuickBooks", logo: quickbooksLogo },
   { name: "Microsoft", logo: microsoftLogo },
-  { name: "Zoho", logo: zohoLogo },
   { name: "Xero", logo: xeroLogo },
   { name: "SAP", logo: sapLogo },
   { name: "Odoo", logo: odooLogo },
