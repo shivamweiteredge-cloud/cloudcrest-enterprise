@@ -1,87 +1,80 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import logo from "@/assets/cloudcrest-logo.png";
-import team1 from "@/assets/team1.png";
-import team2 from "@/assets/team2.png";
-import team3 from "@/assets/team3.png";
-import team4 from "@/assets/team4.png";
-import team5 from "@/assets/team5.png";
-import team6 from "@/assets/team6.png";
-import microsoft from "@/assets/microsoft.png";
-import adda from "@/assets/adda.png";
-import zoho from "@/assets/zoho.png";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '@/assets/cloudcrest-logo.png';
+
 const navItems = [
-  { label: "Home", href: "#home" },
+  { label: 'Home', href: '/' },
   {
-    label: "Services",
-    href: "#services",
+    label: 'Services',
+    href: '/#services',
     children: [
-      { label: "Incorporation Services", href: "#services" },
-      { label: "Bookkeeping & Reporting", href: "#services" },
-      { label: "Payroll Management", href: "#services" },
-      { label: "GST Compliance", href: "#services" },
-      { label: "Tax Advisory", href: "#services" },
-      { label: "IndAS Advisory", href: "#services" },
-      { label: "Internal Audit & Risk Management", href: "#services" },
-      { label: "Company Law & Legal Advisory Services", href: "#services" },
+      { label: 'Incorporation Services', href: '/incorporation-services' },
+      { label: 'Bookkeeping & Reporting', href: '/bookkeeping-and-reporting' },
+      { label: 'Payroll Management', href: '/payroll-management-service' },
+      { label: 'GST Compliance & Advisory', href: '/gst-and-tax-advisory' },
+      { label: 'Tax – Domestic & International', href: '/tax-domestic-and-international' },
+      { label: 'Internal Audit & Risk Management', href: '/internal-audit-risk-management' },
+      { label: 'IndAS Advisory', href: '/ind-as-advisory' },
+      { label: 'Company Law & Legal Advisory', href: '/company-law-legal-advisory-services' },
     ],
   },
   {
-    label: "Consulting",
-    href: "#consulting",
+    label: 'Consulting',
+    href: '/#consulting',
     children: [
-      { label: "Tax Representation", href: "#consulting" },
-      { label: "Virtual CFO", href: "#consulting" },
-      { label: "Feasibility Reports", href: "#consulting" },
+      { label: 'Tax Representation', href: '/tax-representation-services' },
+      { label: 'Virtual CFO', href: '/virtual-cfo-services' },
+      { label: 'Feasibility Reports (DPR)', href: '/detailed-project-report' },
     ],
   },
   {
-    label: "Our Insights",
-    href: "#ourinsights",
+    label: 'About',
+    href: '/about-us',
     children: [
-      { label: "Tax Insights", href: "#insights" },
-      { label: "GST Insights", href: "#insights" },
-      { label: "IndAS Insights", href: "#insights" },
-      { label: "Other Business Insights", href: "#insights" },
+      { label: 'About Us', href: '/about-us' },
+      { label: 'Our People', href: '/our-people' },
     ],
   },
-  {
-    label: "About",
-    href: "#about",
-    children: [
-      { label: "About Us", href: "#about" },
-      { label: "Our People", href: "#people" },
-    ],
-  },
-  { label: "Contact", href: "#contact" },
+  { label: 'Contact', href: '/contact-us' },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const showTransparent = !isScrolled && isHomePage;
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-lg shadow-lg py-3"
-          : "bg-transparent py-5"
-      }`}>
+        showTransparent
+          ? 'bg-transparent py-5'
+          : 'bg-background/95 backdrop-blur-lg shadow-lg py-3'
+      }`}
+    >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <a href="#home" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img src={logo} alt="CloudCrest" className="h-10 md:h-12" />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1">
@@ -89,20 +82,20 @@ export const Navbar = () => {
             <div
               key={item.label}
               className="relative"
-              onMouseEnter={() =>
-                item.children && setActiveDropdown(item.label)
-              }
-              onMouseLeave={() => setActiveDropdown(null)}>
-              <a
-                href={item.href}
+              onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <Link
+                to={item.href}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-1 ${
-                  isScrolled
-                    ? "text-foreground hover:text-accent hover:bg-accent/10"
-                    : "text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10"
-                }`}>
+                  showTransparent
+                    ? 'text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10'
+                    : 'text-foreground hover:text-accent hover:bg-accent/10'
+                }`}
+              >
                 {item.label}
                 {item.children && <ChevronDown className="w-4 h-4" />}
-              </a>
+              </Link>
 
               <AnimatePresence>
                 {item.children && activeDropdown === item.label && (
@@ -110,14 +103,16 @@ export const Navbar = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 mt-2 w-56 bg-card rounded-xl shadow-xl border border-border overflow-hidden">
+                    className="absolute top-full left-0 mt-2 w-64 bg-card rounded-xl shadow-xl border border-border overflow-hidden"
+                  >
                     {item.children.map((child) => (
-                      <a
+                      <Link
                         key={child.label}
-                        href={child.href}
-                        className="block px-4 py-3 text-sm text-foreground hover:bg-accent/10 hover:text-accent transition-colors">
+                        to={child.href}
+                        className="block px-4 py-3 text-sm text-foreground hover:bg-accent/10 hover:text-accent transition-colors"
+                      >
                         {child.label}
-                      </a>
+                      </Link>
                     ))}
                   </motion.div>
                 )}
@@ -127,25 +122,26 @@ export const Navbar = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <Button variant={isScrolled ? "outline" : "hero-outline"} size="sm">
-            Compliances Calendar
-          </Button>
-          <Button variant={isScrolled ? "accent" : "hero"} size="sm">
-            Get Started
-          </Button>
+          <Link to="/compliances-calendar">
+            <Button variant={showTransparent ? 'hero-outline' : 'outline'} size="sm">
+              Compliances Calendar
+            </Button>
+          </Link>
+          <Link to="/contact-us">
+            <Button variant={showTransparent ? 'hero' : 'accent'} size="sm">
+              Get Started
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={`lg:hidden p-2 rounded-lg ${
-            isScrolled ? "text-foreground" : "text-primary-foreground"
-          }`}>
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
+            showTransparent ? 'text-primary-foreground' : 'text-foreground'
+          }`}
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
@@ -154,22 +150,43 @@ export const Navbar = () => {
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-t border-border">
-            <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+            className="lg:hidden bg-background border-t border-border"
+          >
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-foreground hover:bg-accent/10 hover:text-accent transition-colors font-medium">
-                  {item.label}
-                </a>
+                <div key={item.label}>
+                  <Link
+                    to={item.href}
+                    onClick={() => !item.children && setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg text-foreground hover:bg-accent/10 hover:text-accent transition-colors font-medium block"
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children && (
+                    <div className="pl-6 space-y-1">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="px-4 py-2 rounded-lg text-sm text-muted-foreground hover:bg-accent/10 hover:text-accent transition-colors block"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Button variant="outline">Compliances Calendar</Button>
-                <Button variant="accent">Get Started</Button>
+                <Link to="/compliances-calendar" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">Compliances Calendar</Button>
+                </Link>
+                <Link to="/contact-us" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="accent" className="w-full">Get Started</Button>
+                </Link>
               </div>
             </nav>
           </motion.div>
