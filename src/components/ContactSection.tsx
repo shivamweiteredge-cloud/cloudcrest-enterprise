@@ -11,6 +11,7 @@ const contactInfo = [
     label: "Visit Us",
     value:
       "Level 4, N Heights, Plot No 38, Phase 2, Siddiq Nagar, HITEC City, Hyderabad, Telangana 500081",
+    href: undefined,
   },
   {
     icon: Phone,
@@ -28,6 +29,7 @@ const contactInfo = [
     icon: Clock,
     label: "Business Hours",
     value: "Mon - Sat: 9:00 AM - 6:00 PM",
+    href: undefined,
   },
 ];
 
@@ -51,6 +53,7 @@ export const ContactSection = () => {
       className="py-24"
       style={{ background: "var(--gradient-hero)" }}>
       <div className="container mx-auto px-4">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,13 +71,14 @@ export const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Contact Info */}
+        {/* Main Grid */}
+        <div className="grid lg:grid-cols-5 gap-8 items-stretch">
+          {/* LEFT — Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6">
+            className="lg:col-span-2 flex flex-col gap-5">
             {contactInfo.map((item, index) => (
               <motion.div
                 key={item.label}
@@ -82,22 +86,22 @@ export const ContactSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex gap-4 p-6 bg-primary-foreground/5 backdrop-blur-sm rounded-2xl border border-primary-foreground/10">
-                <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-6 h-6 text-accent-foreground" />
+                className="flex gap-4 p-5 bg-primary-foreground/5 backdrop-blur-sm rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-5 h-5 text-accent-foreground" />
                 </div>
                 <div>
-                  <p className="text-primary-foreground/60 text-sm mb-1">
+                  <p className="text-primary-foreground/60 text-xs mb-1 uppercase tracking-wide font-medium">
                     {item.label}
                   </p>
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="text-primary-foreground font-semibold hover:text-accent transition-colors">
+                      className="text-primary-foreground font-semibold hover:text-accent transition-colors text-sm">
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-primary-foreground font-semibold">
+                    <p className="text-primary-foreground font-semibold text-sm">
                       {item.value}
                     </p>
                   )}
@@ -105,9 +109,14 @@ export const ContactSection = () => {
               </motion.div>
             ))}
 
-            {/* Company Info */}
-            <div className="p-6 bg-primary-foreground/5 backdrop-blur-sm rounded-2xl border border-primary-foreground/10">
-              <h3 className="font-display text-xl font-bold text-primary-foreground mb-3">
+            {/* Company Info Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="flex-1 p-6 bg-accent/20 backdrop-blur-sm rounded-2xl border border-accent/30">
+              <h3 className="font-display text-lg font-bold text-primary-foreground mb-3">
                 Cloudcrest Business Management LLP
               </h3>
               <p className="text-primary-foreground/80 text-sm leading-relaxed">
@@ -116,71 +125,105 @@ export const ContactSection = () => {
                 solutions that ensure full statutory compliance, prompt service,
                 and maximum client satisfaction.
               </p>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* RIGHT — Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}>
-            <div className="bg-card rounded-2xl p-8 shadow-2xl">
-              <h3 className="font-display text-2xl font-bold text-foreground mb-6">
+            viewport={{ once: true }}
+            className="lg:col-span-3">
+            <div className="bg-card rounded-2xl p-10 shadow-2xl h-full flex flex-col justify-center">
+              <h3 className="font-display text-3xl font-bold text-foreground mb-2">
                 Send Us a Message
               </h3>
+              <p className="text-muted-foreground mb-8">
+                Fill out the form below and we'll get back to you within 24
+                hours.
+              </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Input
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-foreground">
+                      Your Name
+                    </label>
+                    <Input
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-foreground">
+                      Email Address
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className="h-12"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Input
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                  <Input
-                    placeholder="Subject"
-                    value={formData.subject}
-                    onChange={(e) =>
-                      setFormData({ ...formData, subject: e.target.value })
-                    }
-                  />
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-foreground">
+                      Phone Number
+                    </label>
+                    <Input
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-foreground">
+                      Subject
+                    </label>
+                    <Input
+                      placeholder="How can we help?"
+                      value={formData.subject}
+                      onChange={(e) =>
+                        setFormData({ ...formData, subject: e.target.value })
+                      }
+                      className="h-12"
+                    />
+                  </div>
                 </div>
 
-                <Textarea
-                  placeholder="Your Message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  className="resize-none"
-                />
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-foreground">
+                    Your Message
+                  </label>
+                  <Textarea
+                    placeholder="Tell us about your business needs..."
+                    rows={6}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="resize-none"
+                  />
+                </div>
 
                 <Button
                   type="submit"
                   variant="accent"
                   size="lg"
-                  className="w-full">
+                  className="w-full h-14 text-base font-bold">
                   Send Message
                   <ArrowRight className="w-5 h-5" />
                 </Button>

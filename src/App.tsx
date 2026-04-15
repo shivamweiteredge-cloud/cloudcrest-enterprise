@@ -7,21 +7,35 @@ import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-const IncorporationServices = lazy(() => import("./pages/IncorporationServices"));
-const BookkeepingAndReporting = lazy(() => import("./pages/BookkeepingAndReporting"));
+const IncorporationServices = lazy(
+  () => import("./pages/IncorporationServices"),
+);
+const BookkeepingAndReporting = lazy(
+  () => import("./pages/BookkeepingAndReporting"),
+);
 const PayrollManagement = lazy(() => import("./pages/PayrollManagement"));
 const GSTAdvisory = lazy(() => import("./pages/GSTAdvisory"));
-const TaxDomesticInternational = lazy(() => import("./pages/TaxDomesticInternational"));
+const TaxDomesticInternational = lazy(
+  () => import("./pages/TaxDomesticInternational"),
+);
 const InternalAudit = lazy(() => import("./pages/InternalAudit"));
 const IndASAdvisory = lazy(() => import("./pages/IndASAdvisory"));
 const CompanyLawAdvisory = lazy(() => import("./pages/CompanyLawAdvisory"));
 const TaxRepresentation = lazy(() => import("./pages/TaxRepresentation"));
 const VirtualCFO = lazy(() => import("./pages/VirtualCFO"));
-const DetailedProjectReport = lazy(() => import("./pages/DetailedProjectReport"));
+const DetailedProjectReport = lazy(
+  () => import("./pages/DetailedProjectReport"),
+);
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const OurPeople = lazy(() => import("./pages/OurPeople"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const CompliancesCalendar = lazy(() => import("./pages/CompliancesCalendar"));
+
+// Insights Pages
+const TaxInsights = lazy(() => import("./pages/TaxInsights"));
+const GSTInsights = lazy(() => import("./pages/GSTInsights"));
+const IndAsInsights = lazy(() => import("./pages/IndAsInsights"));
+const OtherInsights = lazy(() => import("./pages/OtherInsights"));
 
 const queryClient = new QueryClient();
 
@@ -41,24 +55,56 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             {/* Services */}
-            <Route path="/incorporation-services" element={<IncorporationServices />} />
-            <Route path="/bookkeeping-and-reporting" element={<BookkeepingAndReporting />} />
-            <Route path="/payroll-management-service" element={<PayrollManagement />} />
+            <Route
+              path="/incorporation-services"
+              element={<IncorporationServices />}
+            />
+            <Route
+              path="/bookkeeping-and-reporting"
+              element={<BookkeepingAndReporting />}
+            />
+            <Route
+              path="/payroll-management-service"
+              element={<PayrollManagement />}
+            />
             <Route path="/gst-and-tax-advisory" element={<GSTAdvisory />} />
-            <Route path="/tax-domestic-and-international" element={<TaxDomesticInternational />} />
-            <Route path="/internal-audit-risk-management" element={<InternalAudit />} />
+            <Route
+              path="/tax-domestic-and-international"
+              element={<TaxDomesticInternational />}
+            />
+            <Route
+              path="/internal-audit-risk-management"
+              element={<InternalAudit />}
+            />
             <Route path="/ind-as-advisory" element={<IndASAdvisory />} />
-            <Route path="/company-law-legal-advisory-services" element={<CompanyLawAdvisory />} />
+            <Route
+              path="/company-law-legal-advisory-services"
+              element={<CompanyLawAdvisory />}
+            />
             {/* Consulting */}
-            <Route path="/tax-representation-services" element={<TaxRepresentation />} />
+            <Route
+              path="/tax-representation-services"
+              element={<TaxRepresentation />}
+            />
             <Route path="/virtual-cfo-services" element={<VirtualCFO />} />
-            <Route path="/detailed-project-report" element={<DetailedProjectReport />} />
+            <Route
+              path="/detailed-project-report"
+              element={<DetailedProjectReport />}
+            />
             {/* About */}
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/our-people" element={<OurPeople />} />
             {/* Contact */}
             <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/compliances-calendar" element={<CompliancesCalendar />} />
+            <Route
+              path="/compliances-calendar"
+              element={<CompliancesCalendar />}
+            />
+            {/* Insights */}
+            <Route path="/insights/tax" element={<TaxInsights />} />
+            <Route path="/insights/gst" element={<GSTInsights />} />
+            <Route path="/insights/indas" element={<IndAsInsights />} />
+            <Route path="/insights/other" element={<OtherInsights />} />
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
