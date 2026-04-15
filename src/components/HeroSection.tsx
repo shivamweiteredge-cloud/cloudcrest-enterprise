@@ -74,7 +74,7 @@ export const HeroSection = () => {
             </motion.div>
 
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Accounting Hassles Gone.{" "}
+              Unlocking Business Potential with Precision Accounting.{" "}
               <span className="text-accent">Your Life Simplified.</span>
             </h1>
 
