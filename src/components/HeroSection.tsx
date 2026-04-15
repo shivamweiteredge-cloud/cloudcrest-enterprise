@@ -74,8 +74,8 @@ export const HeroSection = () => {
             </motion.div>
 
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Unlocking Business Potential with Precision Accounting.{" "}
-              <span className="text-accent">Your Life Simplified.</span>
+              Unlocking Business Potential with{" "}
+              <span className="text-accent">Precision Accounting.</span>
             </h1>
 
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-xl">
